@@ -3,6 +3,7 @@ import {User} from "../entity/User";
 import { QueryBuilder } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { userDto } from "./user.dto";
+import {passwordHash} from "../security/passwordHash"
 
 const router = Router();
 const userRepository = AppDataSource.getRepository(User);
@@ -12,38 +13,13 @@ router.get("/h", (req:Request,res:Response)=>{
     console.log("reached");
 });
 
-// to handle new users
-router.post("/new", async (req:Request,res:Response)=>{
-try{
-  const body:userDto = req.body;
-  const newuser:User = await new User;
-  const email = body.email;
-  const user:User = await userRepository.findOne({where:{email:email}});
-  //checking if the email is aldready in use
 
-  if(user){
-    throw new Error("Email is aldready in use");
-  }
-
-  newuser.age = body.age;
-  newuser.email = body.email;
-  newuser.password = body.password;
-  newuser.firstName = body.firstname;
-
-  await userRepository.save(newuser);
-  return res
-  .status(200)
-  .json({message:"new user created!!"})}catch(err){
-    res.status(500).json({message:err.message});
-  };
-});
-
-
+/* to be completed after auth is done
 //to handle the updation of existing users
-/* // has error
+ // has error
 
 router.put("/update/:id", async (req:Request,res:Response)=>{
-  const uid = parseInt(req.params.id);
+  const uid = parseInt(req.u);
   const body: userDto = req.body;
 
   const existingUser = await userRepository.findOne({
@@ -55,8 +31,9 @@ router.put("/update/:id", async (req:Request,res:Response)=>{
     return res.status(404).json({message:"User not found"});
   }
 
-  existingUser.firstName = body.Firstname;
+  existingUser.FirstName = body.Firstname;
   existingUser.age = body.age;
+
   //to change password
 
  const updated_user = await userRepository.save(existingUser);

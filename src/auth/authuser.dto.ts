@@ -1,16 +1,15 @@
 import { IsOptional } from "class-validator";
 
-export class userDto{
-
+export class authuserDto{
     @IsOptional()
+    id:number;
+
     Firstname:string;
 
-    @IsOptional()
     email:string;
 
-    @IsOptional()
     age:number;
 
-    @IsOptional()
-    password:string;
+    token:string;
+   
 }
