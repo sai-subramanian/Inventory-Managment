@@ -10,6 +10,12 @@ export class authuserDto{
 
     age:number;
 
-    token:string;
    
+}
+
+
+export class loginDto{
+    email:string;
+
+    password:string;
 }

@@ -7,7 +7,7 @@ import {passwordHash} from "../security/passwordHash"
 import { userDto } from "../user/user.dto";
 import {authuserDto} from "./authuser.dto"
 import { JWT } from "../security/jwt";
-
+import {loginDto} from "./authuser.dto"
 const router = Router();
 const userRepository = AppDataSource.getRepository(User);
 
@@ -35,10 +35,7 @@ router.post("/signup", async (req:Request,res:Response)=>{
       const authuser:authuserDto = new authuserDto();
        authuser.Firstname = body.Firstname;
        authuser.age =  body.age;
-       authuser.email = body.email;
-
-      
-
+       authuser.email = body.email;     
 
 
       await userRepository.save(newuser);
@@ -56,9 +53,34 @@ router.post("/signup", async (req:Request,res:Response)=>{
       };
     });
 
-/*
-    router.post("/login",(req:Request,res:Response)=>{
-      const body = req.body;
+
+    router.post("/login",async (req:Request,res:Response)=>{
+      try{
+      const body:loginDto = req.body;
+      const user_signin:User = await userRepository.findOne({where:{email:body.email}});
+       
+      if( ! await passwordHash.comppassword(body.password,user_signin.password)){
+        console.log(user_signin);
+        console.log(await passwordHash.hashPassword(body.password) )
+
+        return res.status(200).json({message:"Incorrect password!!"});
+      }
+
+      const authencationDto:authDto = new authDto();
+      const authuser:authuserDto = new authuserDto();
+       authuser.Firstname = user_signin.FirstName;
+       authuser.age =  user_signin.age;
+       authuser.email = user_signin.email;
+
+      
+      authencationDto.token = await JWT.generateToken(user_signin);
+
+      return res
+      .status(200)
+      .json({message:"user logged in successfully",authencationDto})}catch(err){
+        res.status(500).json({message:err.message});
+      };
+      
     });
-*/
+
     module.exports = router;

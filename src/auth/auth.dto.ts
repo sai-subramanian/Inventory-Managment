@@ -7,4 +7,5 @@ export class authDto{
     refreshToken:string;
 
     user:authuserDto;
+  authencationDto: import("/home/sai/Data/projects/Inventory-Managment/src/entity/User").User;
 }
