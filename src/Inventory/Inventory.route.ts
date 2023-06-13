@@ -25,13 +25,14 @@ router.get("/",checkjwt,async (req:ARequest,res:Response)=>{
     try{
          const body:InventoryDto = req.body;
          const user: User = await Userrepository.findOne({where:{id:req.user.id}});
+         
          //checking if the user exists
          if(!user){
              return res.status(400).json({message:"user not found!!"});
          }
  
          //retriving all the products from the common table and from the Inventory of the given inventory no
-         const product:Inventory  = await InventoryRepository.findOne({where:{UserId:user.id,InventoryNumber:body.InventoryNumber}});
+         const product:Inventory[]  = await InventoryRepository.findBy({UserId:user.id,InventoryNumber:body.InventoryNumber});
  
         return res.status(200).json({products:product});
  

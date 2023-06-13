@@ -60,8 +60,7 @@ router.post("/signup", async (req:Request,res:Response)=>{
       const user_signin:User = await userRepository.findOne({where:{email:body.email}});
        
       if( ! await passwordHash.comppassword(body.password,user_signin.password)){
-        console.log(user_signin);
-        console.log(await passwordHash.hashPassword(body.password) )
+       
 
         return res.status(200).json({message:"Incorrect password!!"});
       }
