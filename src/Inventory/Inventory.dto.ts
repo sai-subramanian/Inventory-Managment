@@ -7,11 +7,14 @@ export class InventoryDto{
     ProductName:string;
 
     
-    ProductPrice:Double;
+    ProductPrice:number;
 
     
-    Quantity:Double;
+    Quantity:number;
 
-    
+    InventoryNumber:number;
+
+    @IsOptional()
+    Barcode:number;
 
 };

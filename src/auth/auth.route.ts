@@ -84,3 +84,14 @@ router.post("/signup", async (req:Request,res:Response)=>{
     });
 
     module.exports = router;
+
+
+    /* test credentials:
+    {
+    
+    "password":"abc",
+    "email":"abc@gmail.com"
+      
+
+}
+*/

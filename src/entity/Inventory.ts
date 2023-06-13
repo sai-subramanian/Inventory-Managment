@@ -21,7 +21,7 @@ export class Inventory{
     Quantity:number;
 
 
-    @Column() //optional
+    @Column({nullable:true}) //optional
     @IsOptional()
     Barcode:number
 

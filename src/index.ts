@@ -20,6 +20,7 @@ console.log("hello world")
 
 app.use("/auth",require("./auth/auth.route"))
 app.use("/user",require("./user/user.route"));
+app.use("/inv",require("./Inventory/Inventory.route"));
 //app.use("/Inv",require("./Inventory/Inventory.route"));
 
 
