@@ -60,7 +60,6 @@ router.post("/addNew",checkjwt,async (req:ARequest,res:Response)=>{
     
    try{
         const body:InventoryDto = req.body;
-        console.log(req.user)
         const user: User = await Userrepository.findOne({where:{id:req.user.id}});
         //checking if the user exists
 

@@ -16,7 +16,7 @@ export const checkjwt= async (req,res,next)=>{
     }
 
     try{
-        //console.log(token)
+        
         const decoded_jwt = jwt.verify(token,JWT_SECRET);
         req.user = decoded_jwt;
 
